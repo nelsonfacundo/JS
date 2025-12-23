@@ -100,12 +100,7 @@ vip → 20% off
 regular → 10% off
 nuevo → sin descuento*/
 
-const tipoCliente = {
-  vip: 'vip',
-  regular: 'regular',
-  nuevo: 'nuevo',
 
-};
 
 function calcularDescuento(precio ,tipoCliente) {
     let montoDescuento  = 0 
@@ -143,9 +138,9 @@ function evaluarNota(nota){
     let message = ""
     if(nota >= 9 && nota <=  10){
         message = "Excelente"
-    }else if(nota >= 7 && nota <= 8) {
+    }else if(nota >= 7) {
         message = "Bien"
-    }else if (nota >= 4 && nota <= 6){
+    }else if (nota >= 4 ){
         message = "Regular"
     }else{
           message = "Desaprobado"
