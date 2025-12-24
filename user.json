@@ -2,11 +2,20 @@
   {
     "userId": "1",
     "username": "facundo",
-    "pass": "123"
+    "pass": "123",
+    "age" :21
   },
   {
     "userId": "2",
     "username": "martin",
+    "age": null,
+    "pass": "asd"
+  },
+  {
+    "userId": "3",
+    "username": "",
+    "age" :21,
     "pass": "asd"
   }
+  
 ]
