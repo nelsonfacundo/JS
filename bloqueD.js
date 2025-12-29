@@ -207,3 +207,126 @@ function transformarResponse(arr) {
 
 
 console.log(transformarResponse(personasApi))
+
+
+/**6️⃣ Detectar duplicados
+Recibir un array de valores.
+Devolver:
+un array con los valores duplicados
+sin repetir duplicados en la salida */
+
+const valoresDuplicados = [
+  "login",
+  "logout",
+  "login",
+  "error",
+  "timeout",
+  "error",
+  "login"
+];
+
+
+function detectarDuplicados(arr){
+  let duplicates = [];
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = i + 1; j < arr.length; j++) {
+            if (arr[i] === arr[j]) {
+                if (!duplicates.includes(arr[i])) {
+                    duplicates.push(arr[i]);
+                }
+            }
+        }
+    }
+  return duplicates
+}
+
+
+//Version moderna
+function detectarDuplicadosV2(arr) {
+  const duplicados = arr.filter(
+    (item, index) => arr.indexOf(item) !== index
+  );
+  return [...new Set(duplicados)];
+}
+
+
+console.log(detectarDuplicados(valoresDuplicados))
+console.log(detectarDuplicadosV2(valoresDuplicados))
+
+
+/**7️⃣ Normalizar data para asserts
+Recibir un array de strings y devolver otro:
+sin espacios
+en minúsculas
+sin caracteres especiales
+*/
+const textosUI = [
+  "  Login Exitoso ",
+  "ERROR de Servidor",
+  "Usuario   Creado ",
+  "   Tiempo de Espera ",
+   "   !Tiempo de Espera #"
+];
+
+
+function normalizarData(arr){
+  const arrayNormalizado = []
+  for (let i = 0; i < arr.length ; i++) {
+    arrayNormalizado.push( 
+      arr[i]
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-zA-Z0-9\s]/g, "")
+      .replace(/\s+/g, " "))
+  }
+  return arrayNormalizado
+}
+
+console.log(normalizarData(textosUI))
+
+/**8️⃣ Generar reporte simple
+Recibir un array de resultados de test:
+{ testName, status }
+Devolver un objeto con:
+total tests
+cantidad passed
+cantidad failed
+porcentaje de éxito */
+const resultadosTests = [
+  { testName: "Login OK", status: "passed" },
+  { testName: "Login error", status: "failed" },
+  { testName: "Logout", status: "passed" },
+  { testName: "Crear usuario", status: "passed" },
+  { testName: "Eliminar usuario", status: "failed" }
+];
+
+/**9️⃣ Validar reglas de negocio
+Recibir un objeto usuario con:
+{ username, role, active }
+Validar:
+admin siempre puede acceder
+user solo si active === true
+guest nunca
+Devolver true o false. */
+
+const usuariosAcceso = [
+  { username: "admin1", role: "admin", active: false },
+  { username: "user1", role: "user", active: true },
+  { username: "user2", role: "user", active: false },
+  { username: "guest1", role: "guest", active: true }
+];
+
+
+/**🔟 Simular respuesta de API
+Crear una función que:
+devuelva una promesa
+resuelva con data o error
+simule delay
+📌 NO fetch
+📌 NO axios
+📌 Solo lógica JS */
+const apiResponseMock = [
+  { id: 1, message: "ok" },
+  { id: 2, message: "ok" },
+  { id: 3, message: "error" }
+];
