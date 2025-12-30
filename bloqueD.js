@@ -379,3 +379,28 @@ const apiResponseMock = [
   { id: 2, message: "ok" },
   { id: 3, message: "error" }
 ];
+
+function simularApi() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const ok = Math.random() > 0.5;
+
+      if (ok) {
+        resolve({ status: "ok", data: "respuesta correcta" });
+      } else {
+        reject({ status: "error", message: "fallo de servidor" });
+      }
+    }, 1000);
+  });
+}
+  
+async function probarApi() {
+  try {
+    const response = await simularApi();
+    console.log("Éxito:", response);
+  } catch (error) {
+    console.log("Error:", error);
+  }
+}
+
+probarApi();
