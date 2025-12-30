@@ -300,6 +300,32 @@ const resultadosTests = [
   { testName: "Eliminar usuario", status: "failed" }
 ];
 
+//porcentaje de exito =  (Éxitos / Total de Intentos) * 100 
+function generarReporte(arr){
+
+    const resumen = {
+    totalTest: 0,
+    cantidadPass: 0,
+    cantidadFailed: 0,
+    porcentajeExito: 0
+  };
+
+  for(let i = 0 ; i < arr.length ; i++){
+    resumen.totalTest++
+
+    if(arr[i].status == "passed"){
+      resumen.cantidadPass++
+    }else{
+      resumen.cantidadFailed++
+    }
+    
+  }
+  resumen.porcentajeExito = (resumen.cantidadPass / resumen.totalTest ) * 100
+  return resumen
+}
+
+console.log(generarReporte(resultadosTests))
+
 /**9️⃣ Validar reglas de negocio
 Recibir un objeto usuario con:
 { username, role, active }
@@ -316,6 +342,29 @@ const usuariosAcceso = [
   { username: "guest1", role: "guest", active: true }
 ];
 
+function validarReglasDeNegocio(usuariosAcceso){
+  resultado = false;
+    if( usuariosAcceso.role === "admin" ){
+      resultado = true
+    }else if(usuariosAcceso.role === "user" && usuariosAcceso.active ){
+      resultado = true
+    }else{
+       resultado = false
+    }
+  return resultado
+}
+
+
+//version corta
+function validarReglasDeNegocioV2(usuario) {
+  if (usuario.role === "admin") return true;
+  if (usuario.role === "user" && usuario.active === true) return true;
+  return false;
+}
+
+
+console.log(validarReglasDeNegocio(usuariosAcceso[0]))
+console.log(validarReglasDeNegocioV2(usuariosAcceso[0]))
 
 /**🔟 Simular respuesta de API
 Crear una función que:
