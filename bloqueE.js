@@ -163,3 +163,43 @@ async function buscarUserTest(username) {
 }
 
 buscarUserTest("facundo")
+
+
+/**5️⃣ Contar registros async
+Crear una función que:
+reciba un array
+simule delay
+devuelva una Promise con:
+{ total } */
+
+const arr = [1,2,3]
+
+function contarRegistros(arr){
+  return new Promise((resolve,reject) => {
+  setTimeout(() =>{
+     const registro= {
+      total : 0,
+    };
+    for(let i = 0; i < arr.length ; i++){
+      registro.total++
+    }
+    if(registro.total > 0){
+      resolve(registro)
+    }else{
+      reject("no hay registros")
+    }
+  },500)
+  })
+}
+
+
+async function contarRegistrosTest(arr){
+  try{
+    const response = await contarRegistros(arr)
+    console.log(response)
+  }catch(error){
+    console.log("error",error)
+  }
+}
+
+contarRegistrosTest(arr)
