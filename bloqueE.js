@@ -203,3 +203,206 @@ async function contarRegistrosTest(arr){
 }
 
 contarRegistrosTest(arr)
+
+
+/**6️⃣ Filtrar datos async
+Crear una función que:
+reciba un array de números
+devuelva solo los mayores a 10
+use Promise */
+arrayNumber = [1,-2,3,20,15]
+
+function filtrarDatos(array){
+  return new Promise((resolve, reject)  =>{
+    const newArray = []
+      for(let i = 0; i < array.length ; i++){
+        if(array[i] > 10){
+          newArray.push(array[i])
+        }
+      }
+      if (newArray.length > 0) {
+        resolve(newArray);
+      } else {
+        reject("No hay numeros mayores a 10");
+      }
+  } )
+}
+
+
+async function filtrarDatosTest(array){
+  try{
+    const response= await filtrarDatos(array)
+    console.log(response)
+  }catch(error){
+    console.log("error:", error)
+  }
+}
+
+
+filtrarDatosTest(arrayNumber)
+
+
+/**7️⃣ Cadena de promesas (then)
+Crear dos funciones:+
+validar número (Promise)
+duplicar número (Promise)
+Encadenarlas usando .then. */
+
+
+function validarNumero(n) {
+  return new Promise((resolve, reject) => {
+    if (typeof n === "number" && Number.isFinite(n)) {
+      resolve(n);
+    } else {
+      reject("no es un numero valido");
+    }
+  });
+}
+
+function duplicarNumero(n) {
+  return new Promise((resolve, reject) => {
+    resolve(n * 2);
+  });
+}
+
+validarNumero(5)
+  .then(duplicarNumero)
+  .then( (resultado)  => {
+    console.log("resultado final:", resultado); // 10
+  })
+  .catch( (error)  => {
+    console.log("error:", error);
+  });
+
+/**8️⃣ Promise con error aleatorio
+Crear una función que:
+simule una API
+falle o funcione aleatoriamente
+devuelva data o error */
+
+
+function randomError(){
+  return new Promise( (resolve,reject) => {
+    setTimeout(() =>{
+      if(Math.random > 0.5){
+        resolve("success")
+      }else{
+        reject("error")
+      }
+    },500)
+  })
+}
+
+
+async function randomErrorTest(){
+  try{
+    const response = await randomError()
+    console.log(response)
+  }catch(error){
+    console.log(error)
+  }
+}
+
+randomErrorTest()
+
+
+/**9️⃣ Procesar array async
+Crear una función que:
+reciba un array de strings
+normalice (minúsculas, trim)
+devuelva el array normalizado usando Promise */
+
+miArray = ["hOla"," mund o ","Array"]
+
+function normalizarArray(arr){
+  return new Promise((resolve,reject) => {
+    const arrayNormalizado = []
+    for(let i = 0; i < arr.length ; i++){
+      arrayNormalizado.push( 
+      arr[i]
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-zA-Z0-9\s]/g, "")
+      .replace(/\s+/g, " "))
+    }
+
+    if(arrayNormalizado.length > 0){
+      resolve(arrayNormalizado)
+    }else{
+      reject("No hay Strings")
+    }
+  })
+}
+
+
+async function normalizarArrayTest(arr){
+  try{
+    const response = await normalizarArray(arr)
+    console.log(response)
+  }catch(error){
+    console.log(error)
+  }
+}
+
+
+normalizarArrayTest(miArray)
+
+
+/**🔟 Reporte async (QA real)
+Crear una función que:
+reciba resultados de tests
+calcule passed / failed
+devuelva el reporte dentro de una Promise */
+
+const resultadosTests = [
+  { testName: "Login OK", status: "passed" },
+  { testName: "Login error", status: "failed" },
+  { testName: "Logout", status: "passed" },
+  { testName: "Crear usuario", status: "passed" },
+  { testName: "Eliminar usuario", status: "failed" },
+  { testName: "Eliminar usuario", status: "pending" }
+];
+
+function reporte(resultadosTests){
+  return new Promise( (resolve,reject) => {
+    const reporte = {
+      passed: 0,
+      failed : 0,
+      pending : 0,
+      coverage: 0,
+    }
+
+    for(let i = 0 ; i < resultadosTests.length ; i++){
+      if(resultadosTests[i].status === "passed"){
+        reporte.passed++
+      }else if(resultadosTests[i].status === "failed"){
+        reporte.failed++
+      }else{
+        reporte.pending++
+      }
+    }
+
+    const total = reporte.passed + reporte.failed + reporte.pending;
+
+    reporte.coverage = total === 0 ? 0: (reporte.passed / total) * 100;
+
+    if(!resultadosTests.length !== 0){
+        resolve(reporte)
+    }else{
+        reject("No hay resultado de tests")
+    }
+  })
+}
+
+
+async function reporteTest(resultadosTests){
+  try{
+    const response = await reporte(resultadosTests)
+    console.log(response)
+  }catch(error){
+    console.log(error)
+  }
+}
+
+
+reporteTest(resultadosTests)
